@@ -1,0 +1,80 @@
+117690219
+Perez
+Juan
+8888-8888
+juan@mail.com
+San Jose
+Escazu
+Centro
+117690715
+Ramirez
+Jose
+9999-9999
+jramirez@correo.com
+San Jose
+Tibas
+Llorente
+185966566
+Campos
+Sebastian
+95959595
+scampos@correo.com
+San Jose
+Moravia
+Trinidad
+256988874
+Salas
+Jose
+414141441
+jsalas@correo.com
+Heredia
+San Pablo
+Santiago
+337899012
+Gomez
+Ana
+85858585
+ana.gomez@correo.com
+Alajuela
+Alajuela
+San José
+448966012
+Rodriguez
+Mario
+12345678
+mrodriguez@correo.com
+Cartago
+Cartago
+Oreamuno
+559978345
+Vega
+Luis
+87654321
+lvega@correo.com
+Guanacaste
+Liberia
+Liberia
+566989899
+Ortiz
+David
+99669966
+dortiz@correro.com
+Heredia
+Santo Domingo
+Santo Domingo
+667889900
+Mora
+Laura
+98765432
+laura.mora@correo.com
+Puntarenas
+Puntarenas
+Barranca
+779900123
+Diaz
+Carlos
+76543210
+cdiaz@correo.com
+Limon
+Limon
+Puerto Viejo
