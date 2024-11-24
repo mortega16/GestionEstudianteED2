@@ -484,7 +484,7 @@ int main() {
             break;
         case 15:
             int umbral;
-            cout << "Ingrese el número mínimo de cursos compartidos para mostrar la relación: ";
+            cout << "Ingrese el numero minimo de cursos compartidos para mostrar la relacion: ";
             cin >> umbral;
 
             listarArtistasConCursosCompartidosPorCantidad(grafo, arbol, umbral);
@@ -499,7 +499,7 @@ int main() {
             cout << "Cambios guardados. Saliendo...\n";
             break;
         default:
-            cout << "Opción no válida.\n";
+            cout << "Opción no valida.\n";
         }
     } while (opcion != 16);
 
