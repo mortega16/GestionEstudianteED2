@@ -144,7 +144,7 @@
   <ItemGroup>
     <Text Include="artistas.txt" />
     <Text Include="cursos.txt" />
-    <Text Include="Texto.txt" />
+    <Text Include="relaciones_y_asignaciones.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
