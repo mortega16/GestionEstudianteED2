@@ -1,4 +1,6 @@
 #include "Grafo.h"
+#include <fstream>
+#include <sstream>
 
 void Grafo::agregarArista(int cedula1, int cedula2) {
     adyacencias[cedula1].push_back(cedula2);
@@ -17,7 +19,7 @@ vector<int> Grafo::obtenerAdyacentes(int cedula) {
     if (adyacencias.find(cedula) != adyacencias.end()) {
         return adyacencias[cedula];
     }
-    return {}; 
+    return {};
 }
 
 void Grafo::mostrarRelaciones() {
@@ -30,21 +32,24 @@ void Grafo::mostrarRelaciones() {
     }
 }
 
-void Grafo::agregarCursoAArtistas(int cedula1, int cedula2) {
+void Grafo::agregarRelacionCurso(int cedula1, int cedula2) {
+    // Si ya existe la relación, incrementa el contador de cursos compartidos
     if (relacionesCursos[cedula1].find(cedula2) != relacionesCursos[cedula1].end()) {
         relacionesCursos[cedula1][cedula2]++;
-        relacionesCursos[cedula2][cedula1]++;  
+        relacionesCursos[cedula2][cedula1]++;
     }
     else {
+        // Si no existe, la crea
         relacionesCursos[cedula1][cedula2] = 1;
-        relacionesCursos[cedula2][cedula1] = 1;  
+        relacionesCursos[cedula2][cedula1] = 1;
     }
 }
 
-void Grafo::eliminarCursoDeArtistas(int cedula1, int cedula2) {
+void Grafo::eliminarRelacionCurso(int cedula1, int cedula2) {
+    // Elimina la relación de curso entre los dos artistas
     if (relacionesCursos[cedula1].find(cedula2) != relacionesCursos[cedula1].end()) {
         relacionesCursos[cedula1].erase(cedula2);
-        relacionesCursos[cedula2].erase(cedula1);  
+        relacionesCursos[cedula2].erase(cedula1);
     }
 }
 
@@ -54,4 +59,37 @@ unordered_map<int, vector<int>> Grafo::obtenerRelaciones() const {
 
 unordered_map<int, unordered_map<int, int>> Grafo::obtenerRelacionesCursos() const {
     return relacionesCursos;
+}
+
+// Guardar las relaciones de cursos en un archivo
+void Grafo::guardarRelacionesCursosEnArchivo(const string& nombreArchivo) const {
+    ofstream archivo(nombreArchivo);
+    if (!archivo) {
+        cout << "No se pudo abrir el archivo para escritura: " << nombreArchivo << endl;
+        return;
+    }
+
+    for (const auto& par : relacionesCursos) {
+        for (const auto& subpar : par.second) {
+            archivo << par.first << " " << subpar.first << " " << subpar.second << "\n";
+        }
+    }
+    archivo.close();
+}
+
+// Cargar las relaciones de cursos desde un archivo
+void Grafo::cargarRelacionesCursosDesdeArchivo(const string& nombreArchivo) {
+    ifstream archivo(nombreArchivo);
+    if (!archivo) {
+        cout << "No se pudo abrir el archivo: " << nombreArchivo << endl;
+        return;
+    }
+
+    int cedula1, cedula2, cantidad;
+    while (archivo >> cedula1 >> cedula2 >> cantidad) {
+        // Asumimos que la relación entre artistas es bidireccional
+        relacionesCursos[cedula1][cedula2] = cantidad;
+        relacionesCursos[cedula2][cedula1] = cantidad;
+    }
+    archivo.close();
 }

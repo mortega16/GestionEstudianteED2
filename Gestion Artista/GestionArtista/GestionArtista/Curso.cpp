@@ -10,3 +10,5 @@ void Curso::mostrarInfo() const {
     cout << "Nombre: " << nombre << endl;
 
 }
+
+

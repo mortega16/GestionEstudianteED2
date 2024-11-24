@@ -1,6 +1,7 @@
 #include "AVLCurso.h"
 #include <iostream>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 NodoCurso::NodoCurso(const Curso& curso)
@@ -203,6 +204,56 @@ NodoCurso* AVLCurso::obtenerMinimo(NodoCurso* nodo) {
         actual = actual->izquierda;
     }
     return actual;
+}
+
+bool AVLCurso::agregarEstudianteACurso(int codigoCurso, int cedulaEstudiante) {
+    NodoCurso* nodoCurso = buscarCursoRecursivo(raiz, codigoCurso);
+    if (!nodoCurso) {
+        cout << "El curso con código " << codigoCurso << " no existe." << endl;
+        return false;
+    }
+
+    // Comprobar si el estudiante ya está en el conjunto antes de agregarlo
+    if (nodoCurso->curso.estudiantes.count(cedulaEstudiante) > 0) {
+        cout << "El estudiante con cédula " << cedulaEstudiante << " ya está en el curso." << endl;
+        return false;
+    }
+
+    // Agregar estudiante
+    nodoCurso->curso.agregarEstudiante(cedulaEstudiante);
+    cout << "Estudiante agregado al curso con código " << codigoCurso << "." << endl;
+    return true;
+}
+
+bool AVLCurso::eliminarEstudianteDeCurso(int codigoCurso, int cedulaEstudiante) {
+    NodoCurso* nodoCurso = buscarCursoRecursivo(raiz, codigoCurso);
+    if (!nodoCurso) {
+        cout << "El curso con código " << codigoCurso << " no existe." << endl;
+        return false;
+    }
+
+    // Comprobar si el estudiante está en el conjunto antes de eliminarlo
+    if (nodoCurso->curso.estudiantes.count(cedulaEstudiante) == 0) {
+        cout << "El estudiante con cédula " << cedulaEstudiante << " no está en el curso." << endl;
+        return false;
+    }
+
+    // Eliminar estudiante
+    nodoCurso->curso.eliminarEstudiante(cedulaEstudiante);
+    cout << "Estudiante eliminado del curso con código " << codigoCurso << "." << endl;
+    return true;
+}
+
+
+// Método para obtener la lista de estudiantes de un curso
+vector<int> AVLCurso::obtenerEstudiantesDeCurso(int codigoCurso) {
+    NodoCurso* nodoCurso = buscarCursoRecursivo(raiz, codigoCurso);
+    if (!nodoCurso) {
+        cout << "El curso con código " << codigoCurso << " no existe." << endl;
+        return {};
+    }
+
+    return nodoCurso->curso.obtenerEstudiantes();
 }
 
 

@@ -1,2 +1,16 @@
 1
 Historia del Arte 
+2
+Arte Moderno
+3
+Dibujo Artístico  
+4
+Escultura  
+5
+Pintura Clásica  
+6
+Pintura Contemporánea  
+7
+Fotografía Artística  
+8
+Diseño Gráfico  

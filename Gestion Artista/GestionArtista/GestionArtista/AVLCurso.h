@@ -3,6 +3,7 @@
 
 #include "Curso.h"
 #include <string>
+#include <vector>
 
 class NodoCurso {
 public:
@@ -19,6 +20,8 @@ public:
     NodoCurso* raiz;
 
     AVLCurso();
+
+    // Métodos de manejo de cursos
     void agregar(const Curso& curso);
     void mostrarAscendente();
     void mostrarDescendente();
@@ -26,8 +29,13 @@ public:
     bool existeCodigo(int codigo);
     void eliminar(int codigo);
 
+    // Métodos de manejo de estudiantes
+    bool agregarEstudianteACurso(int codigoCurso, int cedulaEstudiante);
+    bool eliminarEstudianteDeCurso(int codigoCurso, int cedulaEstudiante);
+    std::vector<int> obtenerEstudiantesDeCurso(int codigoCurso);
 
 private:
+    // Métodos internos de AVL
     NodoCurso* agregarRecursivo(NodoCurso* nodo, const Curso& curso);
     NodoCurso* rotacionDerecha(NodoCurso* nodo);
     NodoCurso* rotacionIzquierda(NodoCurso* nodo);
@@ -42,4 +50,3 @@ private:
 };
 
 #endif
-

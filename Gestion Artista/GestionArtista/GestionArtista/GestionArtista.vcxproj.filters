@@ -58,5 +58,8 @@
     <Text Include="cursos.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
+    <Text Include="Texto.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
 </Project>
