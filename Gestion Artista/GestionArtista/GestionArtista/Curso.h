@@ -16,8 +16,8 @@ public:
     Curso(int codigo, string nombre);
     void mostrarInfo() const;
     int getCodigo() const { return codigo; }
-    std::string getNombre() const { return nombre; }
-    std::vector<int> obtenerEstudiantes() const {
+    string getNombre() const { return nombre; }
+    vector<int> obtenerEstudiantes() const {
         return std::vector<int>(estudiantes.begin(), estudiantes.end()); // Convierte el set a un vector
     }
 

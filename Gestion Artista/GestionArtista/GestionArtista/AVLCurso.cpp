@@ -221,7 +221,7 @@ bool AVLCurso::agregarEstudianteACurso(int codigoCurso, int cedulaEstudiante) {
 
     // Agregar estudiante
     nodoCurso->curso.agregarEstudiante(cedulaEstudiante);
-    cout << "Estudiante agregado al curso con código " << codigoCurso << "." << endl;
+    //cout << "Estudiante agregado al curso con código " << codigoCurso << "." << endl;
     return true;
 }
 
