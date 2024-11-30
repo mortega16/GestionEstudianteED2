@@ -13,7 +13,6 @@ private:
     int numNodos;                            // Número de artistas
     vector<vector<bool>> matrizAdyacencia;   // Matriz de adyacencia para relaciones
     vector<vector<int>> matrizCursos;        // Matriz para contar cursos compartidos
-
 public:
     Grafo(int tamano);  // Constructor para inicializar la matriz con un tamaño
 
@@ -29,6 +28,7 @@ public:
 
     vector<vector<bool>> obtenerRelaciones() const;
     vector<vector<int>> obtenerRelacionesCursos() const;
+    vector<vector<int>>& obtenerRelacionesCursosMutable();
 
     void guardarRelacionesCursosEnArchivo(const string& nombreArchivo) const;
     void cargarRelacionesCursosDesdeArchivo(const string& nombreArchivo);

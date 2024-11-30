@@ -97,6 +97,9 @@ void Grafo::agregarRelacionCurso(int cedula1, int cedula2, const vector<int>& ce
 
 
 
+vector<vector<int>>& Grafo::obtenerRelacionesCursosMutable() {
+    return matrizCursos;
+}
 
 
 

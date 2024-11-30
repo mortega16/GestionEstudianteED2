@@ -343,20 +343,25 @@ void cargarRelacionesYAsignaciones(Grafo& grafo, AVLCurso& arbolCurso, const vec
             int index2 = encontrarIndice(cedulas, cedula2);
 
             if (index1 != -1 && index2 != -1) {
-                // Si ya existe una relación, sumamos la cantidad de cursos
-                if (grafo.obtenerRelacionesCursos()[index1][index2] == 0) {
-                    // Si no existe relación, la agregamos con el valor correspondiente
-                    grafo.agregarRelacionCurso(cedula1, cedula2, cedulas);
+                // Acceder directamente a la matriz mutable
+                auto& matrizCursos = grafo.obtenerRelacionesCursosMutable();
+
+                // Si la relación no existe, inicializar con el valor del archivo
+                if (matrizCursos[index1][index2] == 0) {
+                    matrizCursos[index1][index2] = cantidad;
+                    matrizCursos[index2][index1] = cantidad;  // Relación simétrica
                 }
                 else {
-                    // Si ya existe la relación, sumamos la cantidad de cursos compartidos
-                    grafo.obtenerRelacionesCursos()[index1][index2] += cantidad;
-                    grafo.obtenerRelacionesCursos()[index2][index1] += cantidad;  // Relación simétrica
+                    // Si ya existe la relación, suma el valor del archivo
+                    matrizCursos[index1][index2] += cantidad;
+                    matrizCursos[index2][index1] += cantidad;  // Relación simétrica
                 }
 
-                // Depuración: verificar que la relación se cargó correctamente
-               // cout << "Cargando relación entre " << cedula1 << " y " << cedula2
-                    //<< " con " << cantidad << " cursos compartidos.\n";
+                
+            }
+            else {
+                cout << "Relación no válida entre " << cedula1 << " y " << cedula2
+                    << ". Cédulas no encontradas en el sistema.\n";
             }
         }
         else if (leyendoAsignaciones) {
@@ -374,8 +379,8 @@ void cargarRelacionesYAsignaciones(Grafo& grafo, AVLCurso& arbolCurso, const vec
     }
 
     archivo.close();
-   // cout << "Relaciones y asignaciones cargadas desde " << nombreArchivo << ".\n";
 }
+
 
 
 
@@ -392,17 +397,15 @@ int mostrarMenu() {
     cout << "3. Mostrar Artistas en Orden Ascendente\n";
     cout << "4. Mostrar Artistas en Orden Descendente\n";
     cout << "5. Consultar Datos de un Artista\n";
-    //cout << "6. Agregar relacion de cursos\n";
-    //cout << "7. Mostrar relaciones de un artista\n";
-    cout << "8. Agregar Curso\n";
-    cout << "9. Eliminar Curso\n";
-    cout << "10. Mostrar Cursos en Orden Ascendente\n";
-    cout << "11. Mostrar Cursos en Orden Descendente\n";
-    cout << "12. Consultar Datos de un Curso\n";
-    cout << "13. Agregar estudiante a un curso\n";
-    cout << "14. Consultar estudiantes con los que comparte cursos\n";
-    cout << "15. Listar estudiantes que comparten al menos una cantidad de cursos\n";
-    cout << "16. Guardar y Salir\n";
+    cout << "6. Agregar Curso\n";
+    cout << "7. Eliminar Curso\n";
+    cout << "8. Mostrar Cursos en Orden Ascendente\n";
+    cout << "9. Mostrar Cursos en Orden Descendente\n";
+    cout << "10. Consultar Datos de un Curso\n";
+    cout << "11. Agregar estudiante a un curso\n";
+    cout << "12. Consultar estudiantes con los que comparte cursos\n";
+    cout << "13. Listar estudiantes que comparten al menos una cantidad de cursos\n";
+    cout << "14. Guardar y Salir\n";
     cout << "Seleccione una opcion: ";
     cin >> opcion;
     return opcion;
@@ -492,13 +495,8 @@ int main() {
             arbol.buscar(cedula);
             break;
         }
-        case 6:
-            agregarRelacionesDeCursos(grafo, arbol);
-            break;
-        case 7:
-            mostrarArtistasConCursosCompartidos(grafo, arbol);
-            break;
-        case 8: {
+       
+        case 6: {
             int codigo;
             string nombre;
 
@@ -520,7 +518,7 @@ int main() {
             cout << "Curso agregado con exito.\n";
             break;
         }
-        case 9: {
+        case 7: {
             int codigo;
             cout << "Ingrese el codigo del curso a eliminar: ";
             cin >> codigo;
@@ -530,18 +528,18 @@ int main() {
             break;
         }
 
-        case 10:
+        case 8:
             cout << "Cursos en Orden Ascendente:\n";
             arbolCurso.mostrarAscendente();
             break;
 
-        case 11:
+        case 9:
             cout << "Cursos en Orden Descendente:\n";
             arbolCurso.mostrarDescendente();
             break;
 
 
-        case 12:
+        case 10:
 
             int codigo;
             cout << "Ingrese el codigo del curso a buscar: ";
@@ -549,21 +547,21 @@ int main() {
 
             arbolCurso.buscarCurso(codigo);
             break;
-        case 13:
+        case 11:
            
             agregarEstudianteACurso(arbolCurso, grafo, arbol, cedulas);  // Pasamos cedulas al agregar
             guardarRelacionesYAsignaciones(grafo, arbolCurso, cedulas, "relaciones_y_asignaciones.txt");
             guardarCambios(arbol, nombreArchivo);
             guardarCambiosCursos(arbolCurso, archivoCursos);
             break;
-        case 14:
+        case 12:
             consultarEstudiantesConCursosCompartidos(grafo, arbol, cedulas);
             
             guardarRelacionesYAsignaciones(grafo, arbolCurso, cedulas, "relaciones_y_asignaciones.txt");
             guardarCambios(arbol, nombreArchivo);
             guardarCambiosCursos(arbolCurso, archivoCursos);
             break;
-        case 15:
+        case 13:
             int umbral;
             cout << "Ingrese el numero minimo de cursos compartidos para mostrar la relacion: ";
             cin >> umbral;
@@ -571,7 +569,7 @@ int main() {
             listarArtistasConCursosCompartidosPorCantidad(grafo, arbol, cedulas, umbral);
             break;
 
-        case 16:
+        case 14:
             guardarRelacionesYAsignaciones(grafo, arbolCurso, cedulas, "relaciones_y_asignaciones.txt");
             
             guardarCambios(arbol, "artistas.txt");
@@ -583,7 +581,7 @@ int main() {
         default:
             cout << "Opción no valida.\n";
         }
-    } while (opcion != 16);
+    } while (opcion != 14);
 
     return 0;
 }
