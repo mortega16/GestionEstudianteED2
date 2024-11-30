@@ -68,28 +68,7 @@ void Grafo::agregarRelacionCurso(int nodo1, int nodo2) {
     }
 }
 
-// Función para agregar relación de cursos entre dos estudiantes (por cédulas)
-/*void Grafo::agregarRelacionCurso(int cedula1, int cedula2, const vector<int>& cedulas) {
-    // Convierte las cédulas a índices usando la función auxiliar
-    int nodo1 = encontrarIndicePorCedula(cedulas, cedula1);
-    int nodo2 = encontrarIndicePorCedula(cedulas, cedula2);
 
-    // Verifica que los índices estén dentro del rango válido
-    if (nodo1 >= 0 && nodo1 < numNodos && nodo2 >= 0 && nodo2 < numNodos) {
-        // Aumenta el contador de cursos compartidos entre los dos estudiantes
-        matrizCursos[nodo1][nodo2]++;
-        matrizCursos[nodo2][nodo1]++;  // Relación bidireccional
-
-        // Depuración: muestra el estado de la relación agregada
-        cout << "Relación agregada entre " << nodo1 << " (Cedula: " << cedula1 << ") y "
-            << nodo2 << " (Cedula: " << cedula2 << "), cursos compartidos: "
-            << matrizCursos[nodo1][nodo2] << endl;
-    }
-    else {
-        cout << "Indices fuera de rango. No se pudo agregar la relacion entre "
-            << cedula1 << " y " << cedula2 << endl;
-    }
-}*/
 void Grafo::agregarRelacionCurso(int cedula1, int cedula2, const vector<int>& cedulas) {
     // Convierte las cédulas a índices usando la función auxiliar
     int nodo1 = encontrarIndicePorCedula(cedulas, cedula1);
@@ -108,10 +87,7 @@ void Grafo::agregarRelacionCurso(int cedula1, int cedula2, const vector<int>& ce
             matrizCursos[nodo2][nodo1]++;  // Relación bidireccional
         }
 
-        // Depuración: muestra el estado de la relación agregada
-       // cout << "Relación agregada entre " << nodo1 << " (Cedula: " << cedula1 << ") y "
-           // << nodo2 << " (Cedula: " << cedula2 << "), cursos compartidos: "
-          //  << matrizCursos[nodo1][nodo2] << endl;
+  
     }
     else {
         cout << "Indices fuera de rango. No se pudo agregar la relación entre "
